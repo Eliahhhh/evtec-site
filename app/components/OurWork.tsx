@@ -14,16 +14,16 @@ const PHOTOS = [
     alt: "Electric vehicle charging in a home garage",
   },
   {
-    src: "https://images.unsplash.com/photo-1781629797266-cf5460bb4111?w=800&q=80",
-    alt: "Close-up of wiring and terminals inside an open electrical panel",
+    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    alt: "Clean, professionally organized electrical panel installation",
   },
   {
     src: "https://images.unsplash.com/photo-1758101755915-462eddc23f57?w=800&q=80",
     alt: "Electrician testing an electrical panel with a multimeter",
   },
   {
-    src: "https://images.unsplash.com/photo-1635335874521-7987db781153?w=800&q=80",
-    alt: "Close-up of an electrical panel and wiring",
+    src: "https://images.unsplash.com/photo-1620714223084-8fcacc2dbe44?w=800&q=80",
+    alt: "Neatly organized wiring in an electrical panel",
   },
 ];
 

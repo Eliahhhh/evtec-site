@@ -84,8 +84,10 @@ export default function HoursContact() {
           <div className="min-h-[320px] overflow-hidden rounded-2xl border border-border">
             <iframe
               title="EV TEC BC Pros location on Google Maps"
-              src="https://www.google.com/maps?q=6540+Hastings+St+%23722+Burnaby+BC+V5B+4Z5&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2602.5!2d-122.9991!3d49.2827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s6540+Hastings+St+%23722%2C+Burnaby%2C+BC+V5B+4Z5!5e0!3m2!1sen!2sca!4v1"
               className="h-full min-h-[320px] w-full"
+              style={{ border: 0 }}
+              allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />

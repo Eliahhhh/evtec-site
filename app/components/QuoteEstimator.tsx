@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { OutletIcon, PhoneIcon, PlugIcon, WallConnectorIcon } from "./Icons";
 
-type AnswerKey = "charger" | "property" | "panelLocation" | "upgrade";
+type AnswerKey =
+  | "charger"
+  | "property"
+  | "panelLocation"
+  | "upgrade"
+  | "carBrand"
+  | "panelDistance";
 
 type Answers = Record<AnswerKey, string | null>;
 
@@ -56,6 +62,28 @@ const QUESTIONS: Question[] = [
       { value: "no", label: "No, my panel is fine" },
     ],
   },
+  {
+    key: "carBrand",
+    question: "What's your car brand?",
+    options: [
+      { value: "tesla", label: "Tesla" },
+      { value: "bmw-mercedes-audi", label: "BMW / Mercedes / Audi" },
+      { value: "chevrolet-gm", label: "Chevrolet / GM" },
+      { value: "ford", label: "Ford" },
+      { value: "other", label: "Other / Not sure" },
+    ],
+  },
+  {
+    key: "panelDistance",
+    question:
+      "How far is your electrical panel from where you want to charge?",
+    options: [
+      { value: "same-room", label: "Same room / garage" },
+      { value: "few-rooms", label: "1-2 rooms away" },
+      { value: "other-side", label: "Other side of house" },
+      { value: "detached", label: "Detached garage / outside" },
+    ],
+  },
 ];
 
 const INITIAL_ANSWERS: Answers = {
@@ -63,34 +91,92 @@ const INITIAL_ANSWERS: Answers = {
   property: null,
   panelLocation: null,
   upgrade: null,
+  carBrand: null,
+  panelDistance: null,
+};
+
+const DISTANCE_ADD: Record<string, [number, number]> = {
+  "same-room": [0, 0],
+  "few-rooms": [50, 75],
+  "other-side": [100, 150],
+  detached: [200, 300],
 };
 
 function getEstimate(answers: Answers) {
-  const isComplex = answers.property === "condo" || answers.upgrade !== "no";
+  const [distLow, distHigh] = DISTANCE_ADD[answers.panelDistance ?? "same-room"] ?? [0, 0];
+  const carAdd = answers.carBrand === "tesla" ? 50 : 0;
+
+  const addLow = distLow + carAdd;
+  const addHigh = distHigh + carAdd;
+
+  const notes: string[] = [];
+  if (carAdd > 0) notes.push("Tesla proprietary connector");
+  if (answers.panelDistance === "detached") notes.push("extra wiring run to a detached garage");
+  else if (answers.panelDistance === "other-side") notes.push("extra wiring run across the house");
+
+  function withAdd(low: number, high: number) {
+    return {
+      low: low + addLow,
+      high: high + addHigh,
+    };
+  }
+
+  function formatRange(low: number, high: number, plus = false) {
+    const formatted = `$${low.toLocaleString()} – $${high.toLocaleString()}`;
+    return plus ? `${formatted}+` : formatted;
+  }
+
+  function withNotes(base: string) {
+    if (notes.length === 0) return base;
+    return `${base} Estimate includes ${notes.join(" and ")}.`;
+  }
+
+  if (answers.upgrade === "yes") {
+    const { low, high } = withAdd(1200, 1800);
+    return {
+      tier: "Panel Upgrade Required",
+      range: formatRange(low, high, true),
+      time: "1-2 days",
+      description: withNotes(
+        "Your electrical panel likely needs an upgrade to support the new charger, which adds extra labor and materials."
+      ),
+    };
+  }
+
+  const isComplex = answers.property === "condo" || answers.upgrade === "unsure";
   if (isComplex) {
+    const { low, high } = withAdd(1200, 1800);
     return {
       tier: "Complex Install",
-      range: "$1,200 – $1,800+",
-      description:
-        "Your project likely involves extra work, such as condo/strata coordination or an electrical panel upgrade.",
+      range: formatRange(low, high, true),
+      time: "6-8 hours",
+      description: withNotes(
+        "Your project likely involves extra work, such as condo/strata coordination or a possible panel upgrade."
+      ),
     };
   }
 
   const isBasic = answers.charger === "nema" && answers.panelLocation === "garage";
   if (isBasic) {
+    const { low, high } = withAdd(400, 600);
     return {
       tier: "Basic Install",
-      range: "$400 – $600",
-      description:
-        "A straightforward NEMA outlet install with easy access to your electrical panel.",
+      range: formatRange(low, high),
+      time: "2-4 hours",
+      description: withNotes(
+        "A straightforward NEMA outlet install with easy access to your electrical panel."
+      ),
     };
   }
 
+  const { low, high } = withAdd(700, 1000);
   return {
     tier: "Standard Install",
-    range: "$700 – $1,000",
-    description:
-      "A standard charger install with normal access to your electrical panel.",
+    range: formatRange(low, high),
+    time: "4-6 hours",
+    description: withNotes(
+      "A standard charger install with normal access to your electrical panel."
+    ),
   };
 }
 
@@ -123,7 +209,7 @@ export default function QuoteEstimator() {
             Instant Quote Estimator
           </h2>
           <p className="mt-4 text-muted">
-            Answer four quick questions to get a ballpark price for your EV
+            Answer six quick questions to get a ballpark price for your EV
             charger installation. No AI, no guesswork — just straightforward
             pricing logic.
           </p>
@@ -197,6 +283,9 @@ export default function QuoteEstimator() {
               </span>
               <p className="mt-5 font-heading text-4xl font-bold tracking-tight text-navy sm:text-5xl">
                 {estimate!.range}
+              </p>
+              <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-accent-2">
+                Estimated install time: {estimate!.time}
               </p>
               <p className="mx-auto mt-3 max-w-md text-sm text-muted sm:text-base">
                 {estimate!.description}
