@@ -14,8 +14,8 @@ const PHOTOS = [
     alt: "Electric vehicle charging in a home garage",
   },
   {
-    src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80",
-    alt: "Electrician installing wiring",
+    src: "https://images.unsplash.com/photo-1781629797266-cf5460bb4111?w=800&q=80",
+    alt: "Close-up of wiring and terminals inside an open electrical panel",
   },
   {
     src: "https://images.unsplash.com/photo-1758101755915-462eddc23f57?w=800&q=80",
