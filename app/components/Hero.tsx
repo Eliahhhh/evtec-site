@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { PhoneIcon } from "./Icons";
 
 export default function Hero() {
@@ -6,6 +7,16 @@ export default function Hero() {
       id="home"
       className="relative overflow-hidden bg-navy pb-20 pt-16 sm:pb-28 sm:pt-20"
     >
+      <Image
+        src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1600&q=80"
+        alt="EV charger being installed"
+        fill
+        unoptimized
+        className="object-cover"
+        preload
+      />
+      <div className="absolute inset-0 bg-black/50" aria-hidden />
+
       <div
         className="pointer-events-none absolute -top-24 right-0 h-96 w-96 rounded-full bg-accent/10 blur-[110px]"
         aria-hidden
@@ -15,7 +26,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 text-center sm:px-6">
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-4 text-center sm:px-6">
         <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
           Burnaby &amp; Lower Mainland
         </span>
@@ -24,7 +35,7 @@ export default function Hero() {
           Vancouver&rsquo;s EV Charger Experts
         </h1>
 
-        <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-white sm:text-lg">
           Professional EV charger installation for homes and businesses in
           Burnaby and the Lower Mainland.
         </p>
