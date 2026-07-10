@@ -32,12 +32,12 @@ export default function Hero() {
         </span>
 
         <h1 className="max-w-3xl font-heading text-4xl font-semibold uppercase leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
-          Vancouver&rsquo;s EV Charger Experts
+          Burnaby&rsquo;s Trusted Electrical Experts
         </h1>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-white sm:text-lg">
-          Professional EV charger installation for homes and businesses in
-          Burnaby and the Lower Mainland.
+          From EV charger installation to full electrical services &mdash;
+          licensed, insured, and serving Burnaby and the Lower Mainland.
         </p>
 
         <div className="mt-10 flex w-full flex-col gap-4 sm:w-auto sm:flex-row">

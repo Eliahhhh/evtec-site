@@ -1,50 +1,106 @@
+import type { ComponentType } from "react";
 import {
-  ClockIcon,
+  BoltIcon,
+  FanIcon,
+  GroundWireIcon,
+  LightbulbIcon,
   OutletIcon,
   PanelIcon,
   PlugIcon,
   RebateIcon,
+  SpotlightIcon,
   WallConnectorIcon,
 } from "./Icons";
 
-const SERVICES = [
-  {
-    icon: PlugIcon,
-    title: "Level 2 EV Charger Installation",
-    description:
-      "Fast, safe installation of Level 2 chargers so you can charge overnight and leave home full every day.",
-  },
-  {
-    icon: OutletIcon,
-    title: "NEMA 14-50 Outlet Installation",
-    description:
-      "Code-compliant 240V outlets installed for flexible charging with any EVSE or portable charger.",
-  },
+const EV_SERVICES = [
   {
     icon: WallConnectorIcon,
-    title: "Tesla Wall Connector Installation",
+    title: "EV Charger Installation",
     description:
-      "Certified installs of the Tesla Wall Connector for the fastest home charging speeds available.",
+      "Level 2, NEMA 14-50, and Tesla Wall Connector installs for fast, safe home charging.",
   },
   {
-    icon: PanelIcon,
-    title: "Panel Upgrade for EV",
+    icon: PlugIcon,
+    title: "Electric Vehicle Infrastructure",
     description:
-      "Electrical panel upgrades to safely support your new charger and future home electrical needs.",
-  },
-  {
-    icon: ClockIcon,
-    title: "Same-Day Quote & Install",
-    description:
-      "Need it fast? We offer same-day quotes and installs across Burnaby and the Lower Mainland.",
+      "Full EV charging infrastructure planning and installation for homes and businesses.",
   },
   {
     icon: RebateIcon,
-    title: "BC Hydro Rebate Assistance",
+    title: "BCHydro Rebate Assistance",
     description:
-      "We help you navigate and apply for BC Hydro EV charger rebates to maximize your savings.",
+      "We help you navigate government rebates to maximize your savings on a new charger.",
   },
 ];
+
+const ELECTRICAL_SERVICES = [
+  {
+    icon: PanelIcon,
+    title: "Electrical Panel Repair & Upgrade",
+    description: "Panel replacements, upgrades, and repairs done to code.",
+  },
+  {
+    icon: OutletIcon,
+    title: "Outlet & Switch Installation",
+    description: "New outlets, switches, and relocations for any room.",
+  },
+  {
+    icon: LightbulbIcon,
+    title: "Light Fixture Installation",
+    description: "Indoor and outdoor lighting installs, done right the first time.",
+  },
+  {
+    icon: FanIcon,
+    title: "Fan Installation & Repair",
+    description: "Ceiling fans and ventilation, installed or repaired.",
+  },
+  {
+    icon: GroundWireIcon,
+    title: "Ground Wire Installation",
+    description: "Safety grounding to protect your home's electrical system.",
+  },
+  {
+    icon: SpotlightIcon,
+    title: "Outdoor Lighting",
+    description: "Exterior and security lighting installation.",
+  },
+  {
+    icon: BoltIcon,
+    title: "Electrical Power Restoration",
+    description: "Fast response for power outages and electrical failures.",
+  },
+];
+
+function ServiceList({
+  services,
+}: {
+  services: { icon: ComponentType<{ className?: string }>; title: string; description: string }[];
+}) {
+  return (
+    <div className="mt-8 divide-y divide-border">
+      {services.map(({ icon: Icon, title, description }, index) => (
+        <div
+          key={title}
+          className={`flex flex-col items-center gap-6 py-8 text-center sm:flex-row sm:text-left ${
+            index % 2 === 1 ? "sm:flex-row-reverse sm:text-right" : ""
+          }`}
+        >
+          <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-background-alt text-navy">
+            <Icon className="h-9 w-9" />
+          </span>
+          <div>
+            <h3 className="font-heading text-xl font-semibold tracking-tight text-navy sm:text-2xl">
+              {title}
+            </h3>
+            <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted sm:text-base">
+              {description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function Services() {
   return (
@@ -58,32 +114,24 @@ export default function Services() {
             Our Services
           </h2>
           <p className="mt-4 text-muted">
-            Full-service EV charger installation, from planning to permit to
-            power-on.
+            A full-service electrical contractor for Burnaby and the Lower
+            Mainland &mdash; from EV charger installs to everyday electrical
+            work.
           </p>
         </div>
 
-        <div className="mt-14 divide-y divide-border">
-          {SERVICES.map(({ icon: Icon, title, description }, index) => (
-            <div
-              key={title}
-              className={`flex flex-col items-center gap-6 py-8 text-center sm:flex-row sm:text-left ${
-                index % 2 === 1 ? "sm:flex-row-reverse sm:text-right" : ""
-              }`}
-            >
-              <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-2 border-accent bg-background-alt text-navy">
-                <Icon className="h-9 w-9" />
-              </span>
-              <div>
-                <h3 className="font-heading text-xl font-semibold tracking-tight text-navy sm:text-2xl">
-                  {title}
-                </h3>
-                <p className="mt-2 max-w-lg text-sm leading-relaxed text-muted sm:text-base">
-                  {description}
-                </p>
-              </div>
-            </div>
-          ))}
+        <div className="mt-14">
+          <h3 className="text-center font-heading text-lg font-bold uppercase tracking-wide text-accent-2 sm:text-left">
+            EV Charger Services
+          </h3>
+          <ServiceList services={EV_SERVICES} />
+        </div>
+
+        <div className="mt-16">
+          <h3 className="text-center font-heading text-lg font-bold uppercase tracking-wide text-accent-2 sm:text-left">
+            Electrical Services
+          </h3>
+          <ServiceList services={ELECTRICAL_SERVICES} />
         </div>
       </div>
     </section>

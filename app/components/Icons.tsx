@@ -204,6 +204,77 @@ export function TagIcon({ className }: IconProps) {
   );
 }
 
+export function LightbulbIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M9 18h6M10 21h4" />
+      <path d="M12 3a6 6 0 0 0-3.5 10.9c.6.45 1 1.2 1 2.1h5c0-.9.4-1.65 1-2.1A6 6 0 0 0 12 3Z" />
+    </svg>
+  );
+}
+
+export function FanIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+      <path d="M12 12c0-3.5 1.5-7 4.5-7 2 0 3 1.5 3 3 0 3-3.5 4-7.5 4Z" />
+      <path d="M12 12c-3.5 0-7-1.5-7-4.5 0-2 1.5-3 3-3 3 0 4 3.5 4 7.5Z" />
+      <path d="M12 12c3.5 0 7 1.5 7 4.5 0 2-1.5 3-3 3-3 0-4-3.5-4-7.5Z" />
+    </svg>
+  );
+}
+
+export function GroundWireIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M12 3v9" />
+      <path d="M6 15h12M8 18h8M10 21h4" />
+    </svg>
+  );
+}
+
+export function SpotlightIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M5 4h8l2 5H3l2-5Z" />
+      <path d="M9 9v3l-3 8h9l-3-8" />
+      <path d="M14 13l6-3M14 16l6 1" />
+    </svg>
+  );
+}
+
 export function PhoneIcon({ className }: IconProps) {
   return (
     <svg
